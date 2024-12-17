@@ -1,5 +1,5 @@
 
-import { clerkClient } from '@clerk/clerk-sdk-node';
+// import { clerkClient } from '@clerk/clerk-sdk-node';
 
 // import { clerkClient } from "@clerk/nextjs";
 import { WebhookEvent } from "@clerk/nextjs/server";
@@ -74,15 +74,15 @@ export async function POST(req: Request) {
     };
     const newUser = await createUser(user);
 
-    // Set public metadata
-    if (newUser) {
-      await clerkClient.users.updateUserMetadata(id, {
-        publicMetadata: {
-          userId: newUser._id,
-        },
-      });
+    // // Set public metadata
+    // if (newUser) {
+    //   await clerkClient.users.updateUserMetadata(id, {
+    //     publicMetadata: {
+    //       userId: newUser._id,
+    //     },
+    //   });
     
-    }
+    // }
 
     return NextResponse.json({ message: "OK", user: newUser });
   }
