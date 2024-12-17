@@ -15,15 +15,18 @@ if (!cached) {
 
 export async function connectToDatabase() {
 if (cached.conn) {
+    console.log("connected to database");
+    
     return cached.conn;
 }
 
 if (!MONGODB_URL) throw  new Error("missing MongoDB url")
 
 cached.promise = cached.promise || mongoose.connect
-( MONGODB_URL , { dbName :"imaginify " , bufferCommands: false})
+( MONGODB_URL , { dbName :"imginify " , bufferCommands: false})
 
 cached.conn = await cached.promise;
+console.log("connected to database");
 
 return cached.conn;
 }
