@@ -1,6 +1,4 @@
-
-// import { clerkClient } from '@clerk/clerk-sdk-node';
-
+/* eslint-disable camelcase */
 // import { clerkClient } from "@clerk/nextjs";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
@@ -61,8 +59,9 @@ export async function POST(req: Request) {
 
   // CREATE
   if (eventType === "user.created") {
-    const { id, email_addresses, image_url, first_name, last_name, username } =
-      evt.data;
+    console.log(evt.data);
+    
+    const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
 
     const user = {
       clerkId: id,
@@ -72,17 +71,19 @@ export async function POST(req: Request) {
       lastName: last_name,
       photo: image_url,
     };
+
     const newUser = await createUser(user);
 
-    // // Set public metadata
-    // if (newUser) {
-    //   await clerkClient.users.updateUserMetadata(id, {
-    //     publicMetadata: {
-    //       userId: newUser._id,
-    //     },
-    //   });
-    
-    // }
+    // Set public metadata
+    if (newUser) {
+      // await clerkClient.users.updateUserMetadata(id, {
+      //   publicMetadata: {
+      //     userId: newUser._id,
+      //   },
+      // });
+      console.log("new user");
+      
+    }
 
     return NextResponse.json({ message: "OK", user: newUser });
   }
@@ -117,3 +118,23 @@ export async function POST(req: Request) {
 
   return new Response("", { status: 200 });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
